@@ -20,6 +20,7 @@ use pipe::{PipelineBuild, PipelineData, PolyPipeline};
 use renderer::Renderer;
 use resources::{ScreenDimensions, WindowMessages};
 use tex::Texture;
+use types::Window;
 
 /// Rendering system.
 #[derive(Derivative)]
@@ -73,6 +74,10 @@ where
     /// Returns the size in pixels of the window.
     pub fn window_size(&self) -> Option<(u32, u32)> {
         self.renderer.window().get_inner_size()
+    }
+
+    pub fn gl_window(&self) -> Arc<Window> {
+        self.renderer.gl_window()
     }
 
     fn asset_loading(

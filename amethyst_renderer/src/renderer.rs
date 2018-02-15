@@ -5,6 +5,7 @@ use gfx::memory::Pod;
 use mesh::{Mesh, MeshBuilder, VertexDataSet};
 use pipe::{ColorBuffer, DepthBuffer, PipelineBuild, PipelineData, PolyPipeline, Target,
            TargetBuilder};
+use std::sync::Arc;
 use tex::{Texture, TextureBuilder};
 use types::{ColorFormat, DepthFormat, Device, Encoder, Factory, Window};
 use winit::{EventsLoop, Window as WinitWindow, WindowBuilder};
@@ -118,6 +119,10 @@ impl Renderer {
     #[cfg(feature = "opengl")]
     pub fn window(&self) -> &WinitWindow {
         self.window.window()
+    }
+
+    pub fn gl_window(&self) -> Arc<Window> {
+        Arc::new(self.window)
     }
 
     #[cfg(feature = "metal")]
