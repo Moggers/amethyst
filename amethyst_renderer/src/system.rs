@@ -76,6 +76,7 @@ where
         self.renderer.window().get_inner_size()
     }
 
+    /// Fetch the GlWindow
     pub fn gl_window(&self) -> Arc<Window> {
         self.renderer.gl_window()
     }

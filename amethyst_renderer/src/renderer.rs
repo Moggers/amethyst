@@ -18,7 +18,7 @@ pub struct Renderer {
     device: Device,
     encoder: Encoder,
     main_target: Target,
-    window: Window,
+    window: Arc<Window>,
     events: EventsLoop,
     multisampling: u16,
     cached_size: (u32, u32),
@@ -121,8 +121,9 @@ impl Renderer {
         self.window.window()
     }
 
+    /// Retrieve a clone of the GlWindow
     pub fn gl_window(&self) -> Arc<Window> {
-        Arc::new(self.window)
+        self.window.clone()
     }
 
     #[cfg(feature = "metal")]
@@ -213,7 +214,7 @@ impl RendererBuilder {
             encoder,
             factory,
             main_target,
-            window,
+            window: Arc::new(window),
             events: self.events,
             multisampling: self.config.multisampling,
             cached_size,
