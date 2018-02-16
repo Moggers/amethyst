@@ -5,12 +5,13 @@ use amethyst_core::bundle::{ECSBundle, Result, ResultExt};
 use amethyst_core::orientation::Orientation;
 use amethyst_core::transform::components::*;
 use specs::{DispatcherBuilder, World};
+use std::sync::Arc;
 
 use {AmbientColor, Camera, Light, Material, MaterialDefaults, Mesh, Rgba, ScreenDimensions,
      Texture, WindowMessages};
+use RenderSystem;
 use config::DisplayConfig;
 use pipe::{PipelineBuild, PolyPipeline};
-use system::RenderSystem;
 
 /// Rendering bundle
 ///
@@ -67,6 +68,7 @@ impl<'a, 'b, B: PipelineBuild<Pipeline = P>, P: 'b + PolyPipeline> ECSBundle<'a,
             .expect("Window closed during initialization!");
         world.add_resource(ScreenDimensions::new(width, height));
         world.add_resource(system.gl_window());
+        world.add_resource(Arc::new(system.waker()));
         Ok(builder.add_thread_local(system))
     }
 }

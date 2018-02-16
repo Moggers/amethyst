@@ -21,6 +21,7 @@ use renderer::Renderer;
 use resources::{ScreenDimensions, WindowMessages};
 use tex::Texture;
 use types::Window;
+use winit::EventsLoopProxy;
 
 /// Rendering system.
 #[derive(Derivative)]
@@ -79,6 +80,11 @@ where
     /// Fetch the GlWindow
     pub fn gl_window(&self) -> Arc<Window> {
         self.renderer.gl_window()
+    }
+
+    /// Fetch a new proxy to wake the event loop
+    pub fn waker(&self) -> EventsLoopProxy {
+        self.renderer.waker()
     }
 
     fn asset_loading(

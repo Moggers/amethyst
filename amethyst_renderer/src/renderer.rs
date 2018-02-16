@@ -8,7 +8,7 @@ use pipe::{ColorBuffer, DepthBuffer, PipelineBuild, PipelineData, PolyPipeline, 
 use std::sync::Arc;
 use tex::{Texture, TextureBuilder};
 use types::{ColorFormat, DepthFormat, Device, Encoder, Factory, Window};
-use winit::{EventsLoop, Window as WinitWindow, WindowBuilder};
+use winit::{EventsLoop, EventsLoopProxy, Window as WinitWindow, WindowBuilder};
 
 /// Generic renderer.
 pub struct Renderer {
@@ -92,11 +92,6 @@ impl Renderer {
             .expect("OpenGL context has been lost");
     }
 
-    /// Retrieve a mutable borrow of the events loop
-    pub fn events_mut(&mut self) -> &mut EventsLoop {
-        &mut self.events
-    }
-
     /// Resize the targets associated with this renderer and pipeline.
     pub fn resize<P: PolyPipeline>(&mut self, pipe: &mut P, new_size: (u32, u32)) {
         self.main_target.resize_main_target(&self.window);
@@ -119,6 +114,16 @@ impl Renderer {
     #[cfg(feature = "opengl")]
     pub fn window(&self) -> &WinitWindow {
         self.window.window()
+    }
+
+    /// Fetch mutable borrow of events
+    pub fn events_mut(&mut self) -> &mut EventsLoop {
+        &mut self.events
+    }
+
+    /// Fetch a waker for the UI thread
+    pub fn waker(&self) -> EventsLoopProxy {
+        self.events.create_proxy()
     }
 
     /// Retrieve a clone of the GlWindow
