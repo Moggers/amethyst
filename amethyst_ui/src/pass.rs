@@ -109,7 +109,7 @@ impl<'a> PassData<'a> for DrawUi {
 
 impl Pass for DrawUi {
     fn compile(&mut self, mut effect: NewEffect) -> Result<Effect> {
-        // Initialize a single unit quad, we'll use this mesh when drawing quads later
+        use std::mem;
         let data = vec![
             PosTex {
                 position: [0., 1., 0.],
@@ -137,7 +137,6 @@ impl Pass for DrawUi {
             },
         ];
         self.mesh = Some(Mesh::build(data).build(&mut effect.factory)?);
-        use std::mem;
         effect
             .simple(VERT_SRC, FRAG_SRC)
             .with_raw_constant_buffer("VertexArgs", mem::size_of::<VertexArgs>(), 1)

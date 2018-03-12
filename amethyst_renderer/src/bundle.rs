@@ -68,7 +68,7 @@ impl<'a, 'b, B: PipelineBuild<Pipeline = P>, P: 'b + PolyPipeline> ECSBundle<'a,
             .expect("Window closed during initialization!");
         world.add_resource(ScreenDimensions::new(width, height));
         world.add_resource(system.gl_window());
-        world.add_resource(Arc::new(system.waker()));
+        world.add_resource(system.waker());
         Ok(builder.add_thread_local(system))
     }
 }

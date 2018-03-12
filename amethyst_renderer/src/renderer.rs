@@ -127,6 +127,7 @@ impl Renderer {
     }
 
     /// Retrieve a clone of the GlWindow
+    #[cfg(feature = "opengl")]
     pub fn gl_window(&self) -> Arc<Window> {
         self.window.clone()
     }

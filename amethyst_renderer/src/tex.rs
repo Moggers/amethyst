@@ -46,6 +46,11 @@ impl Texture {
     pub fn view(&self) -> &RawShaderResourceView {
         &self.view
     }
+
+    /// Fetch the raw texture value
+    pub fn raw(&self) -> &RawTexture {
+        &self.texture
+    }
 }
 
 impl Asset for Texture {
@@ -165,11 +170,12 @@ where
             let (w, h, _, _) = self.info.kind.get_dimensions();
             let w = w as usize;
             let h = h as usize;
+            let len = data.len();
             for y in 0..h {
                 for x in 0..(w * pixel_width) {
-                    v_flip_buffer.push(data[x + (h - y - 1) * w * pixel_width]);
                     // Uncomment this if you need to debug this.
-                    //println!("x: {}, y: {}, w: {}, h: {}, pw: {}", x, y, w, h, pixel_width);
+                    //println!( "x: {}, y: {}, w: {}, h: {}, pw: {}", x, y, w, h, pixel_width);
+                    v_flip_buffer.push(data[(x + (h - y - 1) * w * pixel_width) % len]);
                 }
             }
             data = &v_flip_buffer;
