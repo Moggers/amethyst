@@ -31,9 +31,9 @@ amethyst_core = { path = "../amethyst_core", version = "0.1.0" }
 derivative = "1.0"
 error-chain = "0.11"
 fnv = "1.0"
-gfx = { git = "https://github.com/moggers/gfx", branch = "v0.17-dynamic-texture", features = ["serialize"]}
-gfx_core = { git = "https://github.com/moggers/gfx", branch = "v0.17-dynamic-texture", features = ["serialize"]}
-gfx_macros = { git = "https://github.com/moggers/gfx", branch = "v0.17-dynamic-texture"}
+gfx = { version = "0.17", features = ["serialize"] }
+gfx_core = { version = "0.8", features = ["serialize"] }
+gfx_macros = "0.2"
 imagefmt = "4.0"
 log = "0.4"
 rayon = "0.8"
@@ -42,11 +42,11 @@ serde_derive = "1.0"
 shred = "0.5"
 shrev = "0.8"
 wavefront_obj = "5.0"
-winit = "0.11"
+winit = "0.10"
 
-gfx_device_gl = { git = "https://github.com/moggers/gfx", branch = "v0.17-dynamic-texture", optional = true}
-gfx_window_glutin = { git = "https://github.com/moggers/gfx", branch = "v0.17-dynamic-texture", optional = true}
-glutin = { version = "0.13", optional = true }
+gfx_device_gl = { version = "0.15", optional = true }
+gfx_window_glutin = { version = "0.20", optional = true }
+glutin = { version = "0.12", optional = true }
 
 [target.'cfg(not(target_os = "macos"))'.dependencies]
 gfx_device_vulkan = { version = "0.1", optional = true }
